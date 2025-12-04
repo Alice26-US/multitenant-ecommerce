@@ -1,3 +1,4 @@
+"user client";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
@@ -21,7 +22,8 @@ export default function Home() {
          <Progress value={50} />
         </div>
         <div>
-         <Textarea value="I am a textarea" />
+         <Textarea defaultValue="I am a textarea" />
+
         </div>
         <div>
          <Checkbox  />
