@@ -2,26 +2,39 @@ import type { CollectionConfig } from 'payload';
 
 export const Categories: CollectionConfig = {
     slug: "categories",
-    access: {
-
-        create: () => false,
-        read: ({ req }) => {
-            if (!req.user) return false;
-            // Filter categories by user's tenant
-            return {
-                tenant: {
-                    equals: req.user.tenant, // Assuming user has a 'tenant' field
-                },
-            }
-        },
-        delete: () => false,
-        update: () => false, 
-    },
+    
     fields: [
         {
             name: "name",
             type: "text",
             required: true,
         },
-    ]
+        {
+            name: "slug",
+            type: "text",
+            required: true,
+            unique: true,
+            index: true,
+        },
+        {
+         name: "color",
+         type: "text",
+        }, 
+        {
+            name: "parent",
+            type: "relationship",
+            relationTo: "categories",
+            hasMany: false,
+            admin: {
+                position: "sidebar",  
+            },
+        },
+        {
+            name: "subcategories",
+            type: "join", 
+            collection: "categories",
+            on: "parent",
+            hasMany: true,
+        },
+    ],
 };
